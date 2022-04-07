@@ -3,6 +3,13 @@ const app = express();
 
 const port = 8080;
 
+// app.use("/", (req, res, next) => {
+//   console.log("api visited");
+//   next();
+// });
+
+// app.use("/", express.static("public"));
+
 const movies = [
   {
     title: "Frozen",
@@ -30,23 +37,33 @@ const movies = [
   },
 ];
 
-app.get("/", (req, res, next) => {
-  res.send("Hello World! :)");
-  console.log(movies);
-  // next();
+app.use(express.json());
+
+app.get("/movies", (req, res, next) => {
+  res.json(movies);
 });
 
-app.post("/", (req, res) => {
-  res.send("Got POST request");
+app.post("/movies", (req, res) => {
+  movies.push(req.body);
+  res.status(201);
+  res.send("Created");
 });
 
-app.put("/user", (req, res) => {
-  res.send("Got PUT request at /user");
+app.put("/api/movies/:id", (req, res) => {
+  // res.send("Got PUT request at /user");
 });
 
-app.delete("/user", (req, res) => {
-  res.send("Got DELETE request at /user");
+app.delete("/api/movies/:id", (req, res) => {
+  const id = req.params.id;
+
+  movies = movies.filter((i) => {
+    if (i.id !== id) {
+      return true;
+    }
+    return false;
+  });
+
+  res.send("Movie is deleted");
 });
 
-app.use(express.static("public"));
 app.listen(port, () => console.log(`Listening on port ${port}!`));

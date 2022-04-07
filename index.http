@@ -1,0 +1,22 @@
+GET http://localhost:8080/movies
+
+###
+
+POST http://localhost:8080/movies
+Content-Type: application/json
+ 
+ {  
+    "title": "Iron Man",
+    "premiere": 2010,
+    "genre": "action",
+    "id": 5
+ }
+
+###
+
+PUT http://localhost:8080/api/movie/id
+
+
+###
+
+DELETE http://localhost:8080/api/movie/id
