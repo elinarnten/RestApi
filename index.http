@@ -8,15 +8,23 @@ Content-Type: application/json
  {  
     "title": "Iron Man",
     "premiere": 2010,
-    "genre": "action",
-    "id": 5
+    "genre": "action"
+    
  }
 
 ###
 
-PUT http://localhost:8080/api/movie/id
-
+PUT http://localhost:8080/movies/id
+Content-Type: application/json
+ 
+ {  
+    "title": "Mary Poppins",
+    "premiere": 1965,
+    "genre": "musical"
+    
+    
+ }
 
 ###
 
-DELETE http://localhost:8080/api/movie/id
+DELETE http://localhost:8080/movies/:id
