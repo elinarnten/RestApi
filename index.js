@@ -3,65 +3,66 @@ const app = express();
 
 const port = 8080;
 
-// app.use("/", (req, res, next) => {
-//   console.log("api visited");
-//   next();
-// });
-
-// app.use("/", express.static("public"));
+const getRandomIdNumber = () => {
+  let idNumber = (Math.random() + 1).toString(36).substring(7);
+  return idNumber;
+};
 
 const movies = [
   {
     title: "Frozen",
     premiere: 2014,
     genre: "kids",
-    id: 1,
+    id: getRandomIdNumber(),
   },
   {
     title: "Dr Dolittle",
     premiere: 2020,
     genre: "adventure",
-    id: 2,
+    id: getRandomIdNumber(),
   },
   {
     title: "Love Actually",
     premiere: 2003,
     genre: "romance",
-    id: 3,
+    id: getRandomIdNumber(),
   },
   {
     title: "Spotlight",
     premiere: 2015,
     genre: "drama",
-    id: 4,
+    id: getRandomIdNumber(),
   },
 ];
 
 app.use(express.json());
 
-app.get("/movies", (req, res, next) => {
+app.get("/movies", (req, res) => {
   res.json(movies);
 });
 
 app.post("/movies", (req, res) => {
-  movies.push(req.body);
+  const movie = req.body;
   res.status(201);
+  movies.push({ ...movie, id: getRandomIdNumber() });
   res.send("Created");
 });
 
-app.put("/api/movies/:id", (req, res) => {
-  // res.send("Got PUT request at /user");
+app.put("/movies/:id", (req, res) => {
+  const movieId = req.params.id;
+
+  movies = movies.map(function (movies) {
+    if (movieId === movies.id) {
+      console.log("you edietd me");
+    }
+  });
+
+  // console.log(req.body);
+  res.send("Movie is edited");
 });
 
-app.delete("/api/movies/:id", (req, res) => {
-  const id = req.params.id;
-
-  movies = movies.filter((i) => {
-    if (i.id !== id) {
-      return true;
-    }
-    return false;
-  });
+app.delete("/movies/:id", (req, res) => {
+  movies.pop(req.body);
 
   res.send("Movie is deleted");
 });
