@@ -54,6 +54,7 @@ app.put("/api/movies/:id", (req, res) => {
   const currentMovie = movies.find((movie) => {
     return movie.id == id;
   });
+
   if (!currentMovie) {
     res.status(404).send("Did not find that movie");
   } else {
@@ -64,6 +65,7 @@ app.put("/api/movies/:id", (req, res) => {
         return movie;
       }
     });
+
     movies = updateMovies;
     res.send("Movie is edited");
   }
