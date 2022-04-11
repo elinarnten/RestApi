@@ -50,7 +50,7 @@ app.post("/api/movies", (req, res) => {
 
 app.put("/api/movies/:id", (req, res) => {
   const { id } = req.params;
-  // const movieId = req.params.id;
+
   const currentMovie = movies.find((movie) => {
     return movie.id == id;
   });
@@ -70,9 +70,20 @@ app.put("/api/movies/:id", (req, res) => {
 });
 
 app.delete("/api/movies/:id", (req, res) => {
-  movies.pop(req.body);
+  const { id } = req.params;
 
-  res.send("Movie is deleted");
+  const currentMovieList = movies.find((movie) => {
+    return movie.id == id;
+  });
+
+  if (!currentMovieList) {
+    res.status(404).send("Did not find that movie");
+  } else {
+    const updateMoviesList = movies.filter((movie) => movie.id != id);
+    movies = updateMoviesList;
+
+    res.send("Movie is deleted");
+  }
 });
 
 app.listen(port, () => console.log(`Listening on port ${port}!`));
