@@ -8,18 +8,18 @@ const getRandomIdNumber = () => {
   return idNumber;
 };
 
-const movies = [
+let movies = [
   {
     title: "Frozen",
     premiere: 2014,
     genre: "kids",
-    id: getRandomIdNumber(),
+    id: 1,
   },
   {
     title: "Dr Dolittle",
     premiere: 2020,
     genre: "adventure",
-    id: getRandomIdNumber(),
+    id: 2,
   },
   {
     title: "Love Actually",
@@ -37,31 +37,39 @@ const movies = [
 
 app.use(express.json());
 
-app.get("/movies", (req, res) => {
+app.get("/api/movies", (req, res) => {
   res.json(movies);
 });
 
-app.post("/movies", (req, res) => {
+app.post("/api/movies", (req, res) => {
   const movie = req.body;
   res.status(201);
   movies.push({ ...movie, id: getRandomIdNumber() });
-  res.send("Created");
+  res.send("Created new movie");
 });
 
-app.put("/movies/:id", (req, res) => {
-  const movieId = req.params.id;
-
-  movies = movies.map(function (movies) {
-    if (movieId === movies.id) {
-      console.log("you edietd me");
-    }
+app.put("/api/movies/:id", (req, res) => {
+  const { id } = req.params;
+  // const movieId = req.params.id;
+  const currentMovie = movies.find((movie) => {
+    return movie.id == id;
   });
-
-  // console.log(req.body);
-  res.send("Movie is edited");
+  if (!currentMovie) {
+    res.status(404).send("Did not find that movie");
+  } else {
+    let updateMovies = movies.map((movie) => {
+      if (movie.id == id) {
+        return req.body;
+      } else {
+        return movie;
+      }
+    });
+    movies = updateMovies;
+    res.send("Movie is edited");
+  }
 });
 
-app.delete("/movies/:id", (req, res) => {
+app.delete("/api/movies/:id", (req, res) => {
   movies.pop(req.body);
 
   res.send("Movie is deleted");

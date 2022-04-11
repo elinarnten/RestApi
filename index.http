@@ -1,8 +1,8 @@
-GET http://localhost:8080/movies
+GET http://localhost:8080/api/movies
 
 ###
 
-POST http://localhost:8080/movies
+POST http://localhost:8080/api/movies
 Content-Type: application/json
  
  {  
@@ -14,17 +14,16 @@ Content-Type: application/json
 
 ###
 
-PUT http://localhost:8080/movies/id
+PUT http://localhost:8080/api/movies/1
 Content-Type: application/json
  
- {  
+ {
     "title": "Mary Poppins",
     "premiere": 1965,
-    "genre": "musical"
-    
-    
+    "genre": "musical",   
+    "id": 1 
  }
 
 ###
 
-DELETE http://localhost:8080/movies/:id
+DELETE http://localhost:8080/api/movies/:id
