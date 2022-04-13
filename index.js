@@ -58,7 +58,7 @@ app.put("/api/movies/:id", (req, res) => {
   if (!currentMovie) {
     res.status(404).send("Did not find that movie");
   } else {
-    let updateMovies = movies.map((movie) => {
+    const updateMovies = movies.map((movie) => {
       if (movie.id == id) {
         return req.body;
       } else {
