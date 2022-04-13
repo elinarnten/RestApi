@@ -1,6 +1,6 @@
 # RestApi
 
-A simple rest-api created in NodeJS with express. This api should follow the functionality of CRUD endpoints for one resourse. In this api the resource is movies. The important part is that it should be four attributes of one object of which id is one of the attributes.
+A simple rest-api created in NodeJS with express. This api should follow the functionality of CRUD endpoints for one resourse. In this api the resource is movies. The important part is that it should be four attributes of one object, of which 'id' is one of the attributes.
 
 ## Krav för godkänt:
 
